@@ -1,0 +1,39 @@
+<html>
+
+<head>
+  <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+  <script>
+    $recaptchaId = "";
+    function onSubmit(token) {
+      alert('thanks ' + document.getElementById('field').value);
+    }
+
+    function validate() {
+      grecaptcha.execute($recaptchaId).then((n,x)=>{
+        console.log('then',n);
+      }).catch((n)=>{
+        console.log('catch',n);
+      });
+      
+    }
+    function onloadCallback(){
+      $recaptchaId = grecaptcha.render(
+        "recaptcha", {
+        'sitekey': '6Lc23MUpAAAAAHTRWyvQ9ua9Y_QRdHIgBZzYM0Mx',
+        'callback': onSubmit,
+        'size': 'invisible'
+      }
+      );
+    }
+  </script>
+</head>
+
+<body>
+  <form>
+    Name: (required) <input id="field" name="field">
+    <div id="recaptcha"></div>
+    <button type="button" onclick="validate()" id="submit">submit</button>
+  </form>
+</body>
+
+</html>
